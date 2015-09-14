@@ -1,269 +1,300 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>Calculator</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <style>
-/* Basic reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	
-	/* Better text styling */
-	font: bold 14px Arial, sans-serif;
-}
-
-/* Finally adding some IE9 fallbacks for gradients to finish things up */
-
-/* A nice BG gradient */
-html {
-	height: 100%;
-	background: white;
-	background: radial-gradient(circle, #fff 20%, #ccc);
-	background-size: cover;
-}
-
-/* Using box shadows to create 3D effects */
-#calculator {
-	width: 325px;
-	height: auto;
-	
-	margin: 100px auto;
-	padding: 20px 20px 9px;
-	
-	background: #9dd2ea;
-	background: linear-gradient(#9dd2ea, #8bceec);
-	border-radius: 3px;
-	box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Top portion */
-.top span.clear {
-	float: left;
-}
-
-/* Inset shadow on the screen to create indent */
-.top .screen {
-	height: 40px;
-	width: 212px;
-	
-	float: right;
-	
-	padding: 0 10px;
-	
-	background: rgba(0, 0, 0, 0.2);
-	border-radius: 3px;
-	box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
-	
-	/* Typography */
-	font-size: 17px;
-	line-height: 40px;
-	color: white;
-	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-	text-align: right;
-	letter-spacing: 1px;
-}
-
-/* Clear floats */
-.keys, .top {overflow: hidden;}
-
-/* Applying same to the keys */
-.keys span, .top span.clear {
-	float: left;
-	position: relative;
-	top: 0;
-	
-	cursor: pointer;
-	
-	width: 66px;
-	height: 36px;
-	
-	background: white;
-	border-radius: 3px;
-	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
-	
-	margin: 0 7px 11px 0;
-	
-	color: #888;
-	line-height: 36px;
-	text-align: center;
-	
-	/* prevent selection of text inside keys */
-	user-select: none;
-	
-	/* Smoothing out hover and active states using css3 transitions */
-	transition: all 0.2s ease;
-}
-
-/* Remove right margins from operator keys */
-/* style different type of keys (operators/evaluate/clear) differently */
-.keys span.operator {
-	background: #FFF0F5;
-	margin-right: 0;
-}
-
-.keys span.eval {
-	background: #f1ff92;
-	box-shadow: 0px 4px #9da853;
-	color: #888e5f;
-}
-
-.top span.clear {
-	background: #ff9fa8;
-	box-shadow: 0px 4px #ff7c87;
-	color: white;
-}
-
-/* Some hover effects */
-.keys span:hover {
-	background: #9c89f6;
-	box-shadow: 0px 4px #6b54d3;
-	color: white;
-}
-
-.keys span.eval:hover {
-	background: #abb850;
-	box-shadow: 0px 4px #717a33;
-	color: #ffffff;
-}
-
-.top span.clear:hover {
-	background: #f68991;
-	box-shadow: 0px 4px #d3545d;
-	color: white;
-}
-
-/* Simulating "pressed" effect on active state of the keys by removing the box-shadow and moving the keys down a bit */
-.keys span:active {
-	box-shadow: 0px 0px #6b54d3;
-	top: 4px;
-}
-
-.keys span.eval:active {
-	box-shadow: 0px 0px #717a33;
-	top: 4px;
-}
-
-.top span.clear:active {
-	top: 4px;
-	box-shadow: 0px 0px #d3545d;
+.calc.btn{
+position:fixed !important;
+right:20px;
+bottom:20px;
 }
 </style>
 </head>
-<script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript">
-// Get all the keys from document
-var keys = document.querySelectorAll('#calculator span');
-var operators = ['+', '-', 'x', '/'];
-var decimalAdded = false;
+<body>
+<div data-role="page" id="pageone" width=100% height="200px">
+  <div data-role="main" class="ui-content">
+  <table>
+  <tr>
+  <td>
+  <h2>My Phonebook</h2>
+  <form class="ui-filterable">
+      <input id="myFilter" data-type="search" placeholder="Search inventory">
+    </form>
+  <ul data-role="listview" data-autodividers="true" data-filter="true" data-input="#myFilter" data-inset="true" id="list">
+    <li value="Coldrinks" id="Coldrinks"><a href="#">Pepsi</a></li>
+    <li value="Coldrinks" id="Coldrinks"><a href="#">Coke Cola</a></li>
+    <li value="Coldrinks" id="Coldrinks"><a href="#">Mirinda</a></li>
+    <li value="Soaps" id="Soaps"><a href="#">Lux</a></li>
+    <li value="Soaps" id="Soaps"><a href="#">Dove</a></li>
+    <li value="Soaps" id="Soaps"><a href="#">Detol</a></li>
+    <li value="Biscuits" id="Biscuts"><a href="#">Sunfeast</a></li>
+    <li value="Biscuits" id="Biscuts"><a href="#">Britannia</a></li>
+    <li value="Biscuits" id="Biscuts"> <a href="#">Parle</a></li>
+    <li value="Biscuits" id="Biscuts"><a href="#">PriyaGold</a></li>
+    <li value="Cosmetics" id="Cosmetics"><a href="#">FaceWash</a></li>
+    <li value="Cosmetics" id="Cosmetics"><a href="#">Cream</a></li>
+    <li value="Cosmetics" id="Cosmetics"><a href="#">SunCream</a></li>
+    <li value="Cosmetics" id="Cosmetics"> <a href="#">Powder</a></li>
+   </ul>
+   </td>
+   <td>
+   <form name="nameform" method="get" id="nameform">
+       <select name="selnames" id="selnames" data-autodividers="true" data-native-menu="false">
+         <option selected>All Categories</option>
+         <option value="Soaps">Soaps</option>
+         <option value="Chips">Chips</option>
+         <option value="Coldrinks">Coldrinks</option>
+         <option value="Biscuits">Bisuits</option>
+         <option value="Cosmetics">Creams</option>
+       </select>
+  </form>
+  </td>
+   </tr>
+   </table>
+</div>
+<div class="calc btn" id="calc btn">
+<a href="#calculator" data-role="button" data-inline="true" data-icon="grid">Calculator</a>
+</div>
+</div>
+<div data-role="dialog" id="calculator" width="800px" height="300px">
+<div data-role="header" id="header">
+<h1></h1>
+</div>
+<div data-role="content" id="text">
+<script type="text/javascript">
+window.onload=ac;
+var calculated=true;
+var op=false;
+var result;
+var a_plus_b=0;
+var a='0';
+var b=0;
 
-// Add onclick event to all the keys and perform operations
-for(var i = 0; i < keys.length; i++) {
-	keys[i].onclick = function(e) {
-		// Get the input and button values
-		var input = document.querySelector('.screen');
-		var inputVal = input.innerHTML;
-		var btnVal = this.innerHTML;
-		
-		// Now, just append the key values (btnValue) to the input string and finally use javascript's eval function to get the result
-		// If clear key is pressed, erase everything
-		if(btnVal == 'C') {
-			input.innerHTML = '';
-			decimalAdded = false;
-		}
-		
-		// If eval key is pressed, calculate and display the result
-		else if(btnVal == '=') {
-			var equation = inputVal;
-			var lastChar = equation[equation.length - 1];
-			
-			// Replace all instances of x and ÷ with * and / respectively. This can be done easily using regex and the 'g' tag which will replace all instances of the matched character/substring
-			equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
-			
-			// Final thing left to do is checking the last character of the equation. If it's an operator or a decimal, remove it
-			if(operators.indexOf(lastChar) > -1 || lastChar == '.')
-				equation = equation.replace(/.$/, '');
-			
-			if(equation)
-				input.innerHTML = eval(equation);
-				
-			decimalAdded = false;
-		}
-		
-		// Basic functionality of the calculator is complete. But there are some problems like 
-		// 1. No two operators should be added consecutively.
-		// 2. The equation shouldn't start from an operator except minus
-		// 3. not more than 1 decimal should be there in a number
-		
-		// We'll fix these issues using some simple checks
-		
-		// indexOf works only in IE9+
-		else if(operators.indexOf(btnVal) > -1) {
-			// Operator is clicked
-			// Get the last character from the equation
-			var lastChar = inputVal[inputVal.length - 1];
-			
-			// Only add operator if input is not empty and there is no operator at the last
-			if(inputVal != '' && operators.indexOf(lastChar) == -1) 
-				input.innerHTML += btnVal;
-			
-			// Allow minus if the string is empty
-			else if(inputVal == '' && btnVal == '-') 
-				input.innerHTML += btnVal;
-			
-			// Replace the last operator (if exists) with the newly pressed operator
-			if(operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
-				// Here, '.' matches any character while $ denotes the end of string, so anything (will be an operator in this case) at the end of string will get replaced by new operator
-				input.innerHTML = inputVal.replace(/.$/, btnVal);
-			}
-			
-			decimalAdded =false;
-		}
-		
-		// Now only the decimal problem is left. We can solve it easily using a flag 'decimalAdded' which we'll set once the decimal is added and prevent more decimals to be added once it's set. It will be reset when an operator, eval or clear key is pressed.
-		else if(btnVal == '.') {
-			if(!decimalAdded) {
-				input.innerHTML += btnVal;
-				decimalAdded = true;
-			}
-		}
-		
-		// if any other key is pressed, just append it
-		else {
-			input.innerHTML += btnVal;
-		}
-		
-		// prevent page jumps
-		e.preventDefault();
-	} 
+
+function ac(){
+c("");
+}
+
+
+function c(val)
+{
+document.getElementById("d").value=val;
+}
+
+function v(val)
+{
+if(!isNaN(val) && calculated){
+c(val);
+}
+else if(!isNaN(val) && !calculated){
+document.getElementById("d").value+=val;
+}
+else if(val=='+' || val=='-'){
+e();
+document.getElementById("d").value+=val;
+}
+else{
+document.getElementById("d").value+=val;
+}
+calculated=false;
+}
+
+function e()
+{
+calculated=true;
+
+try
+{
+  a=eval(document.getElementById("d").value);
+  c(a);
+  a=parseFloat(a);
+}
+catch(e)
+{
+  c('Error')
+}
+}
+
+function invert(){
+document.getElementById("d").value*=-1;
+}
+
+function percentage(){
+    var exp=document.getElementById("d").value;
+    if(!isNaN(exp)){
+        result=parseFloat(exp*0.01);
+    }
+    else{
+    a_plus_b=parseFloat(eval(exp));
+    b=a_plus_b-a;
+    result=a+a*b*0.01;
+    }
+    c(""+result);
 }
 </script>
-<body>
-<div id="calculator">
-	<!-- Screen and clear key -->
-	<div class="top">
-		<span class="clear">C</span>
-		<div class="screen"></div>
-	</div>
-	
-	<div class="keys">
-		<!-- operators and other keys -->
-		<span>7</span>
-		<span>8</span>
-		<span>9</span>
-		<span class="operator">+</span>
-		<span>4</span>
-		<span>5</span>
-		<span>6</span>
-		<span class="operator">-</span>
-		<span>1</span>
-		<span>2</span>
-		<span>3</span>
-		<span class="operator">/</span>
-		<span>0</span>
-		<span>.</span>
-		<span class="eval">=</span>
-		<span class="operator">x</span>
-	</div>
+<style type="text/css">
+body
+{
+background-color:tan;
+}
+.box
+{
+background-color:#3d4543;
+height:480px !important;
+width:270px !important;
+border-radius:10px ;
+position:relative !important;
+top:2px !important;
+left:20% !important;
+}
+.display
+{
+background-color:#222;
+width:240px !important;
+position:relative !important;
+left:15px !important;
+top:20px !important;
+height:40px !important;
+}
+.display input
+{
+position:relative !important;
+left:0px !important;
+top:0px !important;
+width:240px !important;
+height:35px !important;
+color:black !important;
+background-color:#bccd95 !important;
+font-size:21px !important;
+text-align:right !important;
+}
+.keys
+{
+position:relative !important;
+top:20px !important;
+left:25px !important;
+}
+.button
+{
+width:40px !important;
+height:30px !important;
+border:none !important;
+border-radius:8px !important;
+margin-left:17px !important;
+cursor:pointer !important;
+border-top:2px solid transparent !important;
+}
+.buttongray
+{
+color:white !important;
+background-color:#6f6f6f     !important;
+border-bottom:black 2px solid !important;
+border-top:2px #6f6f6f solid !important;
+width:10px !important;
+text-align:center !important;
+}
+.buttonpink
+{
+color:black !important;
+background-color:#ff4561 !important;
+border-bottom:black 2px solid !important;
+width:10px !important;
+text-align:center !important;
+}
+.buttonblack
+{
+color:white !important;
+background-color:#303030 !important;
+border-bottom:black 2px solid !important;
+border-top:2px #303030 solid !important;
+width:10px !important;
+text-align:center !important;
+}
+.buttonorange
+{
+color:black !important;
+background-color:#FF9933 !important;
+border-bottom:black 2px solid !important;
+border-top:2px #FF9933 solid !important;
+width:70px !important;
+text-align:center !important;
+}
+.buttongray:active
+{
+border-top:black 2px solid !important;
+border-bottom:2px #6f6f6f solid !important;
+}
+.buttonpink:active
+{
+border-top:black 2px solid !important;
+border-bottom:#ff4561 2px solid !important;
+}
+.buttonblack:active
+{
+border-top:black 2px solid !important;
+border-bottom:#303030 2px solid !important;
+}
+.buttonorange:active
+{
+border-top:black 2px solid !important;
+border-bottom:#FF9933 2px solid !important;
+}
+p
+{
+line-height:10px;
+}
+</style>
+<div class="box">
+<div class="display">
+<input type="text" readonly size="18" id="d"></div>
+<div class="keys">
+    <p><a data-role="button" class="buttongray" data-inline="true"
+    onclick='c("")'>C</a>
+    <a data-role="button" class="buttongray" data-inline="true"
+    onclick='invert()'>+/-</a>
+    <a data-role="button" class="buttongray" data-inline="true"
+    onclick='percentage()'>%</a>
+    <a data-role="button" class="buttonpink" data-inline="true"
+    onclick='v("/")'>/</a></p>
+    <p><a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("7")'>7</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("8")'>8</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("9")'>9</a>
+    <a data-role="button" class="buttonpink" data-inline="true"
+    onclick='v("*")'>*</a></p>
+    <p><a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("4")'>4</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("5")'>5</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("6")'>6</a>
+    <a data-role="button" class="buttonpink" data-inline="true"
+    onclick='v("-")'>-</a></p>
+    <p><a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("1")'>1</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("2")'>2</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("3")'>3</a>
+    <a data-role="button" class="buttonpink" data-inline="true"
+    onclick='v("+")'>+</a></p>
+    <p><a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v("0")'>0</a>
+    <a data-role="button" class="buttonblack" data-inline="true"
+    onclick='v(".")'>.</a>
+    <a data-role="button" class="buttonorange" data-inline="true"
+    onclick='e()'>=</a></p>
 </div>
+</div>
+
+
+</div>
+</div>
+
 </body>
 </html>
